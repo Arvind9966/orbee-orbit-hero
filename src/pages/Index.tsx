@@ -63,14 +63,6 @@ const Index = () => {
               </a>
             </div>
           </div>
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="px-5 py-2 rounded-full bg-accent text-accent-foreground text-sm font-medium hover:opacity-90 transition-opacity"
-          >
-            Get App
-          </motion.button>
         </nav>
 
         {/* Center content */}
