@@ -126,8 +126,8 @@ const Index = () => {
       </section>
 
       {/* Gallery Section */}
-      <section className="relative w-full min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-16 py-12 sm:py-16">
-        <div className="relative z-20 w-full max-w-5xl aspect-square rounded-3xl overflow-hidden border border-border/30 bg-muted/10">
+      <section className="relative w-full min-h-screen flex items-center px-6 sm:px-12 md:px-20 py-12">
+        <div className="relative z-20 w-[280px] sm:w-[340px] md:w-[400px] aspect-square rounded-3xl overflow-hidden border border-border/30 bg-muted/10">
           <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} scrollSpeed={2} />
         </div>
       </section>
