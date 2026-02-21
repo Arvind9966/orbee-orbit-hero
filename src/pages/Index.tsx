@@ -74,17 +74,17 @@ const Index = () => {
               className="text-foreground"
               onComplete={handleLine1Complete}
             />
-           
-                {line2Done && (
-                  <span className="bg-gradient-to-r from-foreground via-[hsl(30,70%,55%)] to-[hsl(35,80%,65%)] bg-clip-text text-transparent">
-                    <TypewriterText
-                      text="Moment"
-                      delay={0}
-                      speed={100}
-                      className="bg-gradient-to-r from-foreground via-[hsl(30,70%,55%)] to-[hsl(35,80%,65%)] bg-clip-text text-transparent"
-                    />
-                  </span>
-                )}
+            {line1Done && (
+              <>
+                {" "}
+                <span className="text-[#FF9A1F]">
+                  <TypewriterText
+                    text="Moment"
+                    delay={0}
+                    speed={100}
+                    className="text-[#FF9A1F]"
+                  />
+                </span>
               </>
             )}
           </h1>
