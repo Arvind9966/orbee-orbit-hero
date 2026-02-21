@@ -5,25 +5,20 @@ import * as THREE from 'three';
 
 interface ParticleData {
   t: number;
-  factor: number;
   speed: number;
-  xFactor: number;
-  yFactor: number;
-  zFactor: number;
   mx: number;
   my: number;
   mz: number;
   cx: number;
   cy: number;
   cz: number;
-  vx: number;
-  vy: number;
-  vz: number;
   randomRadiusOffset: number;
+  color: THREE.Color;
 }
 
-// Shared mouse state so the canvas doesn't need pointer-events
 const globalMouse = { x: 0, y: 0 };
+
+const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#F7DC6F', '#BB8FCE', '#F1948A', '#85C1E9', '#82E0AA', '#E8A87C', '#D7BDE2'];
 
 interface AntigravityInnerProps {
   count?: number;
@@ -33,36 +28,31 @@ interface AntigravityInnerProps {
   waveAmplitude?: number;
   particleSize?: number;
   lerpSpeed?: number;
-  color?: string;
   autoAnimate?: boolean;
-  particleVariance?: number;
   rotationSpeed?: number;
   depthFactor?: number;
-  pulseSpeed?: number;
-  particleShape?: 'capsule' | 'sphere' | 'box' | 'tetrahedron';
   fieldStrength?: number;
+  particleShape?: 'capsule' | 'sphere' | 'box' | 'tetrahedron';
 }
 
 const AntigravityInner = ({
-  count = 300,
-  magnetRadius = 10,
+  count = 400,
+  magnetRadius = 15,
   ringRadius = 10,
   waveSpeed = 0.4,
   waveAmplitude = 1,
-  particleSize = 2,
-  lerpSpeed = 0.1,
-  color = '#FF9FFC',
-  autoAnimate = false,
-  particleVariance = 1,
-  rotationSpeed = 0,
-  depthFactor = 1,
-  pulseSpeed = 3,
+  particleSize = 1.8,
+  lerpSpeed = 0.06,
+  autoAnimate = true,
+  rotationSpeed = 0.05,
+  depthFactor = 0.6,
+  fieldStrength = 8,
   particleShape = 'capsule',
-  fieldStrength = 10
 }: AntigravityInnerProps) => {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const { viewport } = useThree();
   const dummy = useMemo(() => new THREE.Object3D(), []);
+  const colorArray = useRef<Float32Array>();
 
   const lastMousePos = useRef({ x: 0, y: 0 });
   const lastMouseMoveTime = useRef(0);
@@ -74,37 +64,40 @@ const AntigravityInner = ({
     const height = viewport.height || 100;
 
     for (let i = 0; i < count; i++) {
-      const t = Math.random() * 100;
-      const factor = 20 + Math.random() * 100;
-      const speed = 0.01 + Math.random() / 200;
-      const xFactor = -50 + Math.random() * 100;
-      const yFactor = -50 + Math.random() * 100;
-      const zFactor = -50 + Math.random() * 100;
-
-      const x = (Math.random() - 0.5) * width;
-      const y = (Math.random() - 0.5) * height;
-      const z = (Math.random() - 0.5) * 20;
-
-      const randomRadiusOffset = (Math.random() - 0.5) * 2;
+      const x = (Math.random() - 0.5) * width * 1.5;
+      const y = (Math.random() - 0.5) * height * 1.5;
+      const z = (Math.random() - 0.5) * 15;
 
       temp.push({
-        t, factor, speed, xFactor, yFactor, zFactor,
+        t: Math.random() * 100,
+        speed: 0.005 + Math.random() / 300,
         mx: x, my: y, mz: z,
         cx: x, cy: y, cz: z,
-        vx: 0, vy: 0, vz: 0,
-        randomRadiusOffset
+        randomRadiusOffset: (Math.random() - 0.5) * 2,
+        color: new THREE.Color(COLORS[Math.floor(Math.random() * COLORS.length)]),
       });
     }
     return temp;
   }, [count, viewport.width, viewport.height]);
+
+  // Set per-instance colors
+  useEffect(() => {
+    const mesh = meshRef.current;
+    if (!mesh) return;
+    colorArray.current = new Float32Array(count * 3);
+    particles.forEach((p, i) => {
+      colorArray.current![i * 3] = p.color.r;
+      colorArray.current![i * 3 + 1] = p.color.g;
+      colorArray.current![i * 3 + 2] = p.color.b;
+    });
+    mesh.geometry.setAttribute('color', new THREE.InstancedBufferAttribute(colorArray.current, 3));
+  }, [particles, count]);
 
   useFrame(state => {
     const mesh = meshRef.current;
     if (!mesh) return;
 
     const { viewport: v } = state;
-
-    // Use globalMouse instead of pointer (which requires canvas pointer-events)
     const mx = globalMouse.x;
     const my = globalMouse.y;
 
@@ -120,24 +113,22 @@ const AntigravityInner = ({
     let destX = (mx * v.width) / 2;
     let destY = (my * v.height) / 2;
 
-    if (autoAnimate && Date.now() - lastMouseMoveTime.current > 2000) {
+    if (autoAnimate && Date.now() - lastMouseMoveTime.current > 3000) {
       const time = state.clock.getElapsedTime();
-      destX = Math.sin(time * 0.5) * (v.width / 4);
-      destY = Math.cos(time * 0.5 * 2) * (v.height / 4);
+      destX = Math.sin(time * 0.3) * (v.width / 5);
+      destY = Math.cos(time * 0.4) * (v.height / 5);
     }
 
-    const smoothFactor = 0.05;
+    const smoothFactor = 0.04;
     virtualMouse.current.x += (destX - virtualMouse.current.x) * smoothFactor;
     virtualMouse.current.y += (destY - virtualMouse.current.y) * smoothFactor;
 
     const targetX = virtualMouse.current.x;
     const targetY = virtualMouse.current.y;
-
     const globalRotation = state.clock.getElapsedTime() * rotationSpeed;
 
     particles.forEach((particle, i) => {
       const { speed, mx: pmx, my: pmy, mz: pmz, cz, randomRadiusOffset } = particle;
-
       particle.t += speed / 2;
       const t = particle.t;
 
@@ -159,7 +150,7 @@ const AntigravityInner = ({
 
         targetPos.x = projectedTargetX + currentRingRadius * Math.cos(angle);
         targetPos.y = projectedTargetY + currentRingRadius * Math.sin(angle);
-        targetPos.z = pmz * depthFactor + Math.sin(t) * (1 * waveAmplitude * depthFactor);
+        targetPos.z = pmz * depthFactor + Math.sin(t) * waveAmplitude * depthFactor;
       }
 
       particle.cx += (targetPos.x - particle.cx) * lerpSpeed;
@@ -173,15 +164,13 @@ const AntigravityInner = ({
       const currentDistToMouse = Math.sqrt(
         Math.pow(particle.cx - projectedTargetX, 2) + Math.pow(particle.cy - projectedTargetY, 2)
       );
-
       const distFromRing = Math.abs(currentDistToMouse - ringRadius);
-      let scaleFactor = 1 - distFromRing / 10;
-      scaleFactor = Math.max(0, Math.min(1, scaleFactor));
+      let scaleFactor = 1 - distFromRing / 12;
+      scaleFactor = Math.max(0.05, Math.min(1, scaleFactor));
 
-      const finalScale = scaleFactor * (0.8 + Math.sin(t * pulseSpeed) * 0.2 * particleVariance) * particleSize;
+      const finalScale = scaleFactor * (0.7 + Math.sin(t * 2) * 0.3) * particleSize;
       dummy.scale.set(finalScale, finalScale, finalScale);
       dummy.updateMatrix();
-
       mesh.setMatrixAt(i, dummy.matrix);
     });
 
@@ -190,40 +179,31 @@ const AntigravityInner = ({
 
   return (
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
-      {particleShape === 'capsule' && <capsuleGeometry args={[0.05, 0.3, 4, 8]} />}
-      {particleShape === 'sphere' && <sphereGeometry args={[0.15, 8, 8]} />}
-      {particleShape === 'box' && <boxGeometry args={[0.2, 0.2, 0.2]} />}
-      {particleShape === 'tetrahedron' && <tetrahedronGeometry args={[0.2]} />}
-      <meshBasicMaterial color={color} transparent opacity={0.6} />
+      {particleShape === 'capsule' && <capsuleGeometry args={[0.04, 0.25, 4, 8]} />}
+      {particleShape === 'sphere' && <sphereGeometry args={[0.12, 8, 8]} />}
+      {particleShape === 'box' && <boxGeometry args={[0.15, 0.15, 0.15]} />}
+      {particleShape === 'tetrahedron' && <tetrahedronGeometry args={[0.15]} />}
+      <meshBasicMaterial vertexColors transparent opacity={0.85} />
     </instancedMesh>
   );
 };
 
 interface AntigravityProps extends AntigravityInnerProps {
   className?: string;
-  containerRef?: React.RefObject<HTMLElement>;
 }
 
-const Antigravity = ({ className, containerRef, ...props }: AntigravityProps) => {
-  const canvasContainerRef = useRef<HTMLDivElement>(null);
-
+const Antigravity = ({ className, ...props }: AntigravityProps) => {
   useEffect(() => {
-    const target = containerRef?.current || canvasContainerRef.current?.parentElement;
-    if (!target) return;
-
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = target.getBoundingClientRect();
-      // Normalize to -1 to 1 (same as Three.js pointer)
-      globalMouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      globalMouse.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      globalMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      globalMouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
     };
-
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [containerRef]);
+  }, []);
 
   return (
-    <div ref={canvasContainerRef} className={className}>
+    <div className={className}>
       <Canvas
         camera={{ position: [0, 0, 30], fov: 50 }}
         dpr={[1, 2]}

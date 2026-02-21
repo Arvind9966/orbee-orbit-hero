@@ -1,36 +1,44 @@
 import { motion } from "framer-motion";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useCallback } from "react";
 import PhoneMockup from "@/components/PhoneMockup";
 import CardStrip from "@/components/CardStrip";
+import TypewriterText from "@/components/TypewriterText";
 import orbeeLogo from "@/assets/orbee-logo.png";
 
 const Antigravity = lazy(() => import("@/components/Antigravity"));
 
 const Index = () => {
+  const [line1Done, setLine1Done] = useState(false);
+  const [line2Done, setLine2Done] = useState(false);
+  const [allTypingDone, setAllTypingDone] = useState(false);
+
+  const handleLine1Complete = useCallback(() => setLine1Done(true), []);
+  const handleLine2Complete = useCallback(() => {
+    setLine2Done(true);
+    setTimeout(() => setAllTypingDone(true), 200);
+  }, []);
+
   return (
     <div className="bg-background overflow-hidden">
       {/* Hero */}
       <section className="relative min-h-screen flex flex-col">
-        {/* 3D Particle Background */}
+        {/* Colorful Particle Background */}
         <div className="absolute inset-0 z-[1] pointer-events-none">
           <Suspense fallback={null}>
             <Antigravity
               className="w-full h-full"
-              count={200}
-              magnetRadius={12}
-              ringRadius={8}
+              count={350}
+              magnetRadius={15}
+              ringRadius={10}
               waveSpeed={0.3}
               waveAmplitude={0.8}
-              particleSize={1.5}
-              lerpSpeed={0.08}
-              color="#E8A87C"
+              particleSize={1.8}
+              lerpSpeed={0.06}
               autoAnimate
-              particleVariance={0.8}
-              rotationSpeed={0.1}
-              depthFactor={0.8}
-              pulseSpeed={2}
-              particleShape="capsule"
+              rotationSpeed={0.05}
+              depthFactor={0.6}
               fieldStrength={8}
+              particleShape="capsule"
             />
           </Suspense>
         </div>
@@ -55,71 +63,56 @@ const Index = () => {
           </motion.button>
         </nav>
 
-        {/* Floating badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.6 }}
-          className="absolute top-28 right-8 sm:right-16 z-10"
-        >
-          <div className="bg-card rounded-full px-4 py-2 shadow-md flex items-center gap-2 text-sm">
-            <span className="text-accent">📍</span>
-            <span className="text-foreground font-medium">SoHo, NYC</span>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-32 left-6 sm:left-12 z-10"
-        >
-          <div className="bg-card rounded-2xl px-4 py-2.5 shadow-md flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face"
-                alt="Sarah"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-foreground">Sarah M.</p>
-              <p className="text-xs text-accent">● Nearby</p>
-            </div>
-          </div>
-        </motion.div>
-
         {/* Center content */}
         <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 -mt-8">
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="font-serif text-5xl sm:text-6xl md:text-8xl text-center leading-[1.05] max-w-4xl"
-          >
-            <span className="text-foreground">Connect in</span>
-            <br />
-            <span className="text-foreground">the </span>
-            <span className="bg-gradient-to-r from-foreground via-[hsl(30,70%,55%)] to-[hsl(35,80%,65%)] bg-clip-text text-transparent">
-              Moment
-            </span>
-          </motion.h1>
+          {/* Typewriter Headline */}
+          <h1 className="font-serif text-5xl sm:text-6xl md:text-8xl text-center leading-[1.05] max-w-4xl min-h-[2.2em]">
+            <TypewriterText
+              text="Connect in"
+              delay={400}
+              speed={80}
+              className="text-foreground"
+              onComplete={handleLine1Complete}
+            />
+            {line1Done && (
+              <>
+                <br />
+                <TypewriterText
+                  text="the "
+                  delay={200}
+                  speed={80}
+                  className="text-foreground"
+                  onComplete={handleLine2Complete}
+                />
+                {line2Done && (
+                  <span className="bg-gradient-to-r from-foreground via-[hsl(30,70%,55%)] to-[hsl(35,80%,65%)] bg-clip-text text-transparent">
+                    <TypewriterText
+                      text="Moment"
+                      delay={0}
+                      speed={100}
+                      className="bg-gradient-to-r from-foreground via-[hsl(30,70%,55%)] to-[hsl(35,80%,65%)] bg-clip-text text-transparent"
+                    />
+                  </span>
+                )}
+              </>
+            )}
+          </h1>
 
+          {/* Subtext + CTAs fade in after typing */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="mt-6 text-base sm:text-lg text-muted-foreground text-center max-w-lg"
+            animate={allTypingDone ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mt-6 text-base sm:text-lg text-muted-foreground text-center max-w-lg opacity-0"
           >
             Experience the lighter side of social. Real-time connections, zero gravity.
           </motion.p>
 
-          {/* Dual CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
-            className="mt-8 flex items-center gap-4"
+            animate={allTypingDone ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+            className="mt-8 flex items-center gap-4 opacity-0"
           >
             <motion.button
               whileHover={{ scale: 1.04 }}
