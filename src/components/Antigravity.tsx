@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import * as THREE from 'three';
 
 interface ParticleData {
@@ -21,6 +21,9 @@ interface ParticleData {
   vz: number;
   randomRadiusOffset: number;
 }
+
+// Shared mouse state so the canvas doesn't need pointer-events
+const globalMouse = { x: 0, y: 0 };
 
 interface AntigravityInnerProps {
   count?: number;
@@ -99,19 +102,23 @@ const AntigravityInner = ({
     const mesh = meshRef.current;
     if (!mesh) return;
 
-    const { viewport: v, pointer: m } = state;
+    const { viewport: v } = state;
+
+    // Use globalMouse instead of pointer (which requires canvas pointer-events)
+    const mx = globalMouse.x;
+    const my = globalMouse.y;
 
     const mouseDist = Math.sqrt(
-      Math.pow(m.x - lastMousePos.current.x, 2) + Math.pow(m.y - lastMousePos.current.y, 2)
+      Math.pow(mx - lastMousePos.current.x, 2) + Math.pow(my - lastMousePos.current.y, 2)
     );
 
     if (mouseDist > 0.001) {
       lastMouseMoveTime.current = Date.now();
-      lastMousePos.current = { x: m.x, y: m.y };
+      lastMousePos.current = { x: mx, y: my };
     }
 
-    let destX = (m.x * v.width) / 2;
-    let destY = (m.y * v.height) / 2;
+    let destX = (mx * v.width) / 2;
+    let destY = (my * v.height) / 2;
 
     if (autoAnimate && Date.now() - lastMouseMoveTime.current > 2000) {
       const time = state.clock.getElapsedTime();
@@ -129,7 +136,7 @@ const AntigravityInner = ({
     const globalRotation = state.clock.getElapsedTime() * rotationSpeed;
 
     particles.forEach((particle, i) => {
-      const { speed, mx, my, mz, cz, randomRadiusOffset } = particle;
+      const { speed, mx: pmx, my: pmy, mz: pmz, cz, randomRadiusOffset } = particle;
 
       particle.t += speed / 2;
       const t = particle.t;
@@ -138,11 +145,11 @@ const AntigravityInner = ({
       const projectedTargetX = targetX * projectionFactor;
       const projectedTargetY = targetY * projectionFactor;
 
-      const dx = mx - projectedTargetX;
-      const dy = my - projectedTargetY;
+      const dx = pmx - projectedTargetX;
+      const dy = pmy - projectedTargetY;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
-      const targetPos = { x: mx, y: my, z: mz * depthFactor };
+      const targetPos = { x: pmx, y: pmy, z: pmz * depthFactor };
 
       if (dist < magnetRadius) {
         const angle = Math.atan2(dy, dx) + globalRotation;
@@ -152,7 +159,7 @@ const AntigravityInner = ({
 
         targetPos.x = projectedTargetX + currentRingRadius * Math.cos(angle);
         targetPos.y = projectedTargetY + currentRingRadius * Math.sin(angle);
-        targetPos.z = mz * depthFactor + Math.sin(t) * (1 * waveAmplitude * depthFactor);
+        targetPos.z = pmz * depthFactor + Math.sin(t) * (1 * waveAmplitude * depthFactor);
       }
 
       particle.cx += (targetPos.x - particle.cx) * lerpSpeed;
@@ -194,15 +201,33 @@ const AntigravityInner = ({
 
 interface AntigravityProps extends AntigravityInnerProps {
   className?: string;
+  containerRef?: React.RefObject<HTMLElement>;
 }
 
-const Antigravity = ({ className, ...props }: AntigravityProps) => {
+const Antigravity = ({ className, containerRef, ...props }: AntigravityProps) => {
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const target = containerRef?.current || canvasContainerRef.current?.parentElement;
+    if (!target) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = target.getBoundingClientRect();
+      // Normalize to -1 to 1 (same as Three.js pointer)
+      globalMouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      globalMouse.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [containerRef]);
+
   return (
-    <div className={className}>
+    <div ref={canvasContainerRef} className={className}>
       <Canvas
         camera={{ position: [0, 0, 30], fov: 50 }}
         dpr={[1, 2]}
-        style={{ background: 'transparent' }}
+        style={{ background: 'transparent', pointerEvents: 'none' }}
       >
         <AntigravityInner {...props} />
       </Canvas>

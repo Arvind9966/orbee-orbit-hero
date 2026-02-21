@@ -12,7 +12,7 @@ const Index = () => {
       {/* Hero */}
       <section className="relative min-h-screen flex flex-col">
         {/* 3D Particle Background */}
-        <div className="absolute inset-0 z-0 pointer-events-auto">
+        <div className="absolute inset-0 z-[1] pointer-events-none">
           <Suspense fallback={null}>
             <Antigravity
               className="w-full h-full"
