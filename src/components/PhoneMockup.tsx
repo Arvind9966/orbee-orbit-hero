@@ -35,9 +35,11 @@ const PhoneMockup = () => {
             <svg className="w-4 h-4 text-foreground" fill="currentColor" viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
           </div>
 
-          {/* Screen content - full gallery */}
-          <div className="h-full w-full bg-card">
-            <CircularGallery bend={1} textColor="#ffffff" borderRadius={0.08} autoScrollSpeed={0.3} scrollSpeed={1} />
+          {/* Screen content */}
+          <div className="h-full w-full bg-card pt-12 px-4 pb-6">
+            <div className="w-full h-full rounded-2xl overflow-hidden">
+              <CircularGallery bend={1} textColor="#ffffff" borderRadius={0.08} autoScrollSpeed={0.3} scrollSpeed={1} />
+            </div>
           </div>
         </div>
       </motion.div>
