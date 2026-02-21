@@ -1,16 +1,38 @@
 import { motion } from "framer-motion";
+import { lazy, Suspense } from "react";
 import PhoneMockup from "@/components/PhoneMockup";
 import CardStrip from "@/components/CardStrip";
 import orbeeLogo from "@/assets/orbee-logo.png";
+
+const Antigravity = lazy(() => import("@/components/Antigravity"));
 
 const Index = () => {
   return (
     <div className="bg-background overflow-hidden">
       {/* Hero */}
       <section className="relative min-h-screen flex flex-col">
-        {/* Warm radial glow */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/3 w-[600px] h-[600px] rounded-full bg-orbee-pink/60 blur-[120px]" />
+        {/* 3D Particle Background */}
+        <div className="absolute inset-0 z-0 pointer-events-auto">
+          <Suspense fallback={null}>
+            <Antigravity
+              className="w-full h-full"
+              count={200}
+              magnetRadius={12}
+              ringRadius={8}
+              waveSpeed={0.3}
+              waveAmplitude={0.8}
+              particleSize={1.5}
+              lerpSpeed={0.08}
+              color="#E8A87C"
+              autoAnimate
+              particleVariance={0.8}
+              rotationSpeed={0.1}
+              depthFactor={0.8}
+              pulseSpeed={2}
+              particleShape="capsule"
+              fieldStrength={8}
+            />
+          </Suspense>
         </div>
 
         {/* Nav */}
