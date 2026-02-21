@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { lazy, Suspense, useState, useCallback } from "react";
 import PhoneMockup from "@/components/PhoneMockup";
-import CardStrip from "@/components/CardStrip";
+import CircularGallery from "@/components/CircularGallery";
 import TypewriterText from "@/components/TypewriterText";
 import orbeeLogo from "@/assets/orbee-logo.png";
 
@@ -126,13 +126,13 @@ const Index = () => {
         </main>
       </section>
 
-      {/* Phone + Cards — below the fold */}
+      {/* Phone + Gallery — below the fold */}
       <section className="relative w-full -mt-16 pb-12">
         <div className="relative z-20 -mb-36 sm:-mb-44 md:-mb-52">
           <PhoneMockup />
         </div>
-        <div className="relative z-0">
-          <CardStrip />
+        <div className="relative z-0 h-[600px]">
+          <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} />
         </div>
       </section>
     </div>
