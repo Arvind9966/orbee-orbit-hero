@@ -189,7 +189,7 @@ const AntigravityInner = ({
       {particleShape === 'sphere' && <sphereGeometry args={[0.12, 8, 8]} />}
       {particleShape === 'box' && <boxGeometry args={[0.15, 0.15, 0.15]} />}
       {particleShape === 'tetrahedron' && <tetrahedronGeometry args={[0.15]} />}
-      <meshBasicMaterial vertexColors transparent opacity={0.45} />
+      <meshBasicMaterial vertexColors transparent opacity={0.85} />
     </instancedMesh>
   );
 };
