@@ -134,9 +134,9 @@ const Index = () => {
         </main>
       </section>
 
-      {/* Phone + Cards — below the fold */}
-      <section className="relative w-full -mt-16 pb-12">
-        <div className="relative z-20 -mb-36 sm:-mb-44 md:-mb-52">
+      {/* Phone + Cards — below the fold, scroll-triggered */}
+      <section className="relative w-full pt-8 pb-24">
+        <div className="relative z-20 mb-8">
           <PhoneMockup />
         </div>
         <div className="relative z-0">
