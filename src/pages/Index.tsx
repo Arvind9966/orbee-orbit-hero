@@ -283,6 +283,30 @@ const Index = () => {
           <p className="mt-4 text-xs text-muted-foreground/60">
             2,400+ students already signed up
           </p>
+
+          {/* App Store Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-8 flex items-center gap-4"
+          >
+            <a
+              href="#"
+              className="flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-muted/60 border border-border/50 text-foreground font-medium text-sm hover:bg-muted transition-colors shadow-sm"
+            >
+              <span className="text-xl">🍏</span>
+              App Store
+            </a>
+            <a
+              href="#"
+              className="flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-muted/60 border border-border/50 text-foreground font-medium text-sm hover:bg-muted transition-colors shadow-sm"
+            >
+              <span className="text-xl">🤖</span>
+              Google Play
+            </a>
+          </motion.div>
         </motion.div>
       </section>
 
