@@ -122,12 +122,14 @@ const Index = () => {
               Watch Video
             </motion.button>
           </motion.div>
-
-          {/* Gallery card */}
-          <div className="relative z-20 w-full max-w-2xl mt-12 h-[350px] sm:h-[450px] md:h-[500px] rounded-2xl overflow-hidden">
-            <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} scrollSpeed={2} />
-          </div>
         </main>
+      </section>
+
+      {/* Gallery — below the fold */}
+      <section className="relative w-full -mt-16 pb-12">
+        <div className="relative z-20 h-[400px] sm:h-[500px] md:h-[600px]">
+          <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} scrollSpeed={2} />
+        </div>
       </section>
     </div>
   );
