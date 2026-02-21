@@ -49,7 +49,7 @@ const Index = () => {
 
         {/* Nav */}
         <nav className="relative z-10 w-full px-6 sm:px-10 py-5 flex items-center justify-center">
-          <img src={orbeeLogo} alt="Orbee" className="h-24 w-auto" />
+          <img src={orbeeLogo} alt="Orbee" className="h-[134px] w-auto" />
         </nav>
 
         {/* Center content */}
