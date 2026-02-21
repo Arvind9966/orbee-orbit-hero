@@ -115,8 +115,8 @@ const Index = () => {
       </section>
 
       {/* Gallery Section */}
-      <section className="relative w-full min-h-[70vh] flex items-center px-6 sm:px-12 md:px-20 py-16">
-        <div className="flex flex-col md:flex-row items-center md:items-stretch w-full h-[80vh] gap-0">
+      <section className="relative w-full min-h-[60vh] flex items-center px-6 sm:px-12 md:px-20 py-10">
+        <div className="flex flex-col md:flex-row items-center md:items-stretch w-full h-[60vh] gap-0">
           {/* Gallery Card - 40% */}
           <div className="relative z-20 w-full md:w-[40%] h-[50vh] md:h-full rounded-3xl overflow-hidden border border-border/30 bg-muted/10 shrink-0 [filter:grayscale(100%)]">
             <CircularGallery
@@ -156,7 +156,7 @@ const Index = () => {
       </section>
 
       {/* Find Your Date — Tinder Style */}
-      <section className="relative w-full flex items-center px-6 sm:px-12 md:px-20 py-16">
+      <section className="relative w-full flex items-center px-6 sm:px-12 md:px-20 py-10">
         <div className="flex flex-col md:flex-row items-center w-full gap-12 md:gap-0">
           {/* Text — Left 40% */}
           <div className="w-full md:w-[40%] flex flex-col gap-6 md:pr-12">
@@ -226,7 +226,7 @@ const Index = () => {
       </section>
 
       {/* Download QR Section */}
-      <section className="relative w-full py-20 px-6 sm:px-12 md:px-20 flex items-center justify-center">
+      <section className="relative w-full py-10 px-6 sm:px-12 md:px-20 flex items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/5 to-background pointer-events-none" />
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -242,7 +242,7 @@ const Index = () => {
           <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-md">
             Point your camera at the QR code to get Orbee on your device.
           </p>
-          <div className="mt-10 flex flex-col sm:flex-row items-center gap-10">
+          <div className="mt-8 flex flex-col sm:flex-row items-center gap-10">
             {/* iOS QR */}
             <div className="flex flex-col items-center gap-4">
               <div className="w-44 h-44 rounded-2xl bg-white p-3 shadow-lg">
