@@ -154,10 +154,10 @@ const Index = () => {
               Create Your <span className="text-[#FF9A1F]">Bubble</span>
             </h2>
             <ScrambledText
-              radius={120}
-              duration={1}
-              speed={0.6}
-              scrambleChars=".:"
+              radius={80}
+              duration={2}
+              speed={0.3}
+              scrambleChars="·•"
               className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed"
             >
               Build your own circle of campus connections. From dining partners to travel buddies, hobby groups to party squads — find your people and create moments that matter.
