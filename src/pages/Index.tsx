@@ -131,8 +131,8 @@ const Index = () => {
         <div className="relative z-20 -mb-36 sm:-mb-44 md:-mb-52">
           <PhoneMockup />
         </div>
-        <div className="relative z-0 h-[600px]">
-          <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} />
+        <div className="relative z-0 h-[400px] sm:h-[500px] md:h-[600px]">
+          <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} autoScrollSpeed={0.3} />
         </div>
       </section>
     </div>
