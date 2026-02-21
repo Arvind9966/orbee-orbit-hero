@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { lazy, Suspense, useState, useCallback } from "react";
 import CircularGallery from "@/components/CircularGallery";
 import TypewriterText from "@/components/TypewriterText";
+import ScrambledText from "@/components/ScrambledText";
 import orbeeLogo from "@/assets/orbee-logo.png";
 
 const Antigravity = lazy(() => import("@/components/Antigravity"));
@@ -127,22 +128,41 @@ const Index = () => {
 
       {/* Gallery Section */}
       <section className="relative w-full min-h-screen flex items-center px-6 sm:px-12 md:px-20 py-12">
-        <div className="relative z-20 w-[280px] sm:w-[340px] md:w-[400px] aspect-square rounded-3xl overflow-hidden border border-border/30 bg-muted/10">
-          <CircularGallery
-            items={[
-              { image: "/images/dining-bubbles.jpg", text: "Dining Bubbles" },
-              { image: "/images/hobby-bubbles.jpg", text: "Hobby Bubbles" },
-              { image: "/images/travel-bubbles.jpg", text: "Travel Bubbles" },
-              { image: "/images/interest-bubbles.jpg", text: "Interest Bubbles" },
-              { image: "/images/party-bubbles.jpg", text: "Party Bubbles" },
-              { image: "/images/chill-bubbles.jpg", text: "Chill Bubbles" },
-            ]}
-            bend={3}
-            textColor="#000000"
-            font="bold 24px 'Google Sans Flex', sans-serif"
-            borderRadius={0.05}
-            scrollSpeed={2}
-          />
+        <div className="flex flex-col md:flex-row items-center md:items-center gap-10 md:gap-16 w-full">
+          {/* Gallery Card */}
+          <div className="relative z-20 w-[280px] sm:w-[340px] md:w-[400px] aspect-square rounded-3xl overflow-hidden border border-border/30 bg-muted/10 shrink-0">
+            <CircularGallery
+              items={[
+                { image: "/images/dining-bubbles.jpg", text: "Dining Bubbles" },
+                { image: "/images/hobby-bubbles.jpg", text: "Hobby Bubbles" },
+                { image: "/images/travel-bubbles.jpg", text: "Travel Bubbles" },
+                { image: "/images/interest-bubbles.jpg", text: "Interest Bubbles" },
+                { image: "/images/party-bubbles.jpg", text: "Party Bubbles" },
+                { image: "/images/chill-bubbles.jpg", text: "Chill Bubbles" },
+              ]}
+              bend={3}
+              textColor="#000000"
+              font="bold 24px 'Google Sans Flex', sans-serif"
+              borderRadius={0.05}
+              scrollSpeed={2}
+            />
+          </div>
+
+          {/* Text Content */}
+          <div className="flex flex-col gap-4 max-w-md">
+            <h2 className="font-display text-4xl sm:text-5xl font-light text-foreground leading-tight">
+              Create Your <span className="text-[#FF9A1F]">Bubble</span>
+            </h2>
+            <ScrambledText
+              radius={120}
+              duration={1}
+              speed={0.6}
+              scrambleChars=".:"
+              className="text-base sm:text-lg text-muted-foreground leading-relaxed"
+            >
+              Build your own circle of campus connections. From dining partners to travel buddies, hobby groups to party squads — find your people and create moments that matter.
+            </ScrambledText>
+          </div>
         </div>
       </section>
     </div>
