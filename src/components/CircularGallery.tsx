@@ -308,9 +308,14 @@ class GalleryApp {
   boundOnTouchMove: any;
   boundOnTouchUp: any;
 
-  constructor(container: HTMLElement, { items, bend, textColor = '#ffffff', borderRadius = 0, font = 'bold 30px Figtree', scrollSpeed = 2, scrollEase = 0.05 }: any = {}) {
+  autoScrollSpeed: number;
+  isVisible: boolean = false;
+  observer: IntersectionObserver | null = null;
+
+  constructor(container: HTMLElement, { items, bend, textColor = '#ffffff', borderRadius = 0, font = 'bold 30px Figtree', scrollSpeed = 2, scrollEase = 0.05, autoScrollSpeed = 0.5 }: any = {}) {
     this.container = container;
     this.scrollSpeed = scrollSpeed;
+    this.autoScrollSpeed = autoScrollSpeed;
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
     this.onCheckDebounce = debounce(this.onCheck.bind(this), 200);
     this.createRenderer();
@@ -319,8 +324,17 @@ class GalleryApp {
     this.onResize();
     this.createGeometry();
     this.createMedias(items, bend, textColor, borderRadius, font);
+    this.observeVisibility();
     this.update();
     this.addEventListeners();
+  }
+
+  observeVisibility() {
+    this.observer = new IntersectionObserver(
+      ([entry]) => { this.isVisible = entry.isIntersecting; },
+      { threshold: 0.1 }
+    );
+    this.observer.observe(this.container);
   }
 
   createRenderer() {
@@ -416,6 +430,10 @@ class GalleryApp {
   }
 
   update() {
+    // Auto-scroll when visible and not being dragged
+    if (this.isVisible && !this.isDown) {
+      this.scroll.target += this.autoScrollSpeed;
+    }
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
     const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
     if (this.medias) {
@@ -433,27 +451,29 @@ class GalleryApp {
     this.boundOnTouchMove = this.onTouchMove.bind(this);
     this.boundOnTouchUp = this.onTouchUp.bind(this);
     window.addEventListener('resize', this.boundOnResize);
-    window.addEventListener('mousewheel', this.boundOnWheel);
-    window.addEventListener('wheel', this.boundOnWheel);
-    window.addEventListener('mousedown', this.boundOnTouchDown);
-    window.addEventListener('mousemove', this.boundOnTouchMove);
-    window.addEventListener('mouseup', this.boundOnTouchUp);
-    window.addEventListener('touchstart', this.boundOnTouchDown);
-    window.addEventListener('touchmove', this.boundOnTouchMove);
-    window.addEventListener('touchend', this.boundOnTouchUp);
+    // Scope touch/mouse to container so page scroll isn't blocked
+    this.container.addEventListener('mousewheel', this.boundOnWheel, { passive: true });
+    this.container.addEventListener('wheel', this.boundOnWheel, { passive: true });
+    this.container.addEventListener('mousedown', this.boundOnTouchDown);
+    this.container.addEventListener('mousemove', this.boundOnTouchMove);
+    this.container.addEventListener('mouseup', this.boundOnTouchUp);
+    this.container.addEventListener('touchstart', this.boundOnTouchDown, { passive: true });
+    this.container.addEventListener('touchmove', this.boundOnTouchMove, { passive: true });
+    this.container.addEventListener('touchend', this.boundOnTouchUp);
   }
 
   destroy() {
     window.cancelAnimationFrame(this.raf);
+    if (this.observer) this.observer.disconnect();
     window.removeEventListener('resize', this.boundOnResize);
-    window.removeEventListener('mousewheel', this.boundOnWheel);
-    window.removeEventListener('wheel', this.boundOnWheel);
-    window.removeEventListener('mousedown', this.boundOnTouchDown);
-    window.removeEventListener('mousemove', this.boundOnTouchMove);
-    window.removeEventListener('mouseup', this.boundOnTouchUp);
-    window.removeEventListener('touchstart', this.boundOnTouchDown);
-    window.removeEventListener('touchmove', this.boundOnTouchMove);
-    window.removeEventListener('touchend', this.boundOnTouchUp);
+    this.container.removeEventListener('mousewheel', this.boundOnWheel);
+    this.container.removeEventListener('wheel', this.boundOnWheel);
+    this.container.removeEventListener('mousedown', this.boundOnTouchDown);
+    this.container.removeEventListener('mousemove', this.boundOnTouchMove);
+    this.container.removeEventListener('mouseup', this.boundOnTouchUp);
+    this.container.removeEventListener('touchstart', this.boundOnTouchDown);
+    this.container.removeEventListener('touchmove', this.boundOnTouchMove);
+    this.container.removeEventListener('touchend', this.boundOnTouchUp);
     if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
       this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
     }
@@ -468,6 +488,7 @@ interface CircularGalleryProps {
   font?: string;
   scrollSpeed?: number;
   scrollEase?: number;
+  autoScrollSpeed?: number;
 }
 
 export default function CircularGallery({
@@ -477,13 +498,14 @@ export default function CircularGallery({
   borderRadius = 0.05,
   font = 'bold 30px Figtree',
   scrollSpeed = 2,
-  scrollEase = 0.05
+  scrollEase = 0.05,
+  autoScrollSpeed = 0.5
 }: CircularGalleryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!containerRef.current) return;
-    const app = new GalleryApp(containerRef.current, { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase });
+    const app = new GalleryApp(containerRef.current, { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase, autoScrollSpeed });
     return () => { app.destroy(); };
-  }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase]);
+  }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase, autoScrollSpeed]);
   return <div className="circular-gallery" ref={containerRef} />;
 }
