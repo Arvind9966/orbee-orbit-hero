@@ -125,6 +125,29 @@ const Index = () => {
               Watch Video
             </motion.button>
           </motion.div>
+
+          {/* Store Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={allTypingDone ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+            className="mt-5 flex items-center gap-4 opacity-0"
+          >
+            <a
+              href="#"
+              className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-muted/60 border border-border/50 text-foreground font-medium text-sm hover:bg-muted transition-colors shadow-sm"
+            >
+              <span className="text-lg">🍏</span>
+              App Store
+            </a>
+            <a
+              href="#"
+              className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-muted/60 border border-border/50 text-foreground font-medium text-sm hover:bg-muted transition-colors shadow-sm"
+            >
+              <span className="text-lg">🤖</span>
+              Google Play
+            </a>
+          </motion.div>
         </main>
       </section>
 
