@@ -102,30 +102,6 @@ const Index = () => {
             Experience the lighter side of social. Real-time connections, zero gravity.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={allTypingDone ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-            className="mt-8 flex items-center gap-4 opacity-0"
-          >
-            <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-7 py-3.5 rounded-full bg-accent text-accent-foreground font-medium text-sm shadow-md flex items-center gap-2"
-            >
-              Launch Orbee
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-7 py-3.5 rounded-full border border-border text-foreground font-medium text-sm flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              Watch Video
-            </motion.button>
-          </motion.div>
-
           {/* Store Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
