@@ -32,7 +32,7 @@ const PhoneMockup = () => {
           </div>
 
           <div className="text-center">
-            <p className="text-base font-bold text-foreground font-serif">Alex Rivera</p>
+            <p className="text-base font-bold text-foreground">Alex Rivera</p>
             <p className="text-xs text-muted-foreground mt-0.5">CS Major • Sophomore</p>
           </div>
 
@@ -55,7 +55,7 @@ const PhoneMockup = () => {
 
           {/* About me section */}
           <div className="w-full mt-3 text-left">
-            <p className="text-sm font-bold text-foreground font-serif">About me</p>
+            <p className="text-sm font-bold text-foreground">About me</p>
             <div className="mt-2 h-px bg-border w-full" />
             <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
               My downtime includes exploring new coffee spots, hitting the basketball court, and experimenting with creative coding projects.

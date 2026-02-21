@@ -66,7 +66,7 @@ const Index = () => {
         {/* Center content */}
         <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 -mt-8">
           {/* Typewriter Headline */}
-          <h1 className="font-serif text-5xl sm:text-6xl md:text-8xl text-center leading-[1.05] max-w-4xl min-h-[2.2em]">
+          <h1 className="font-sans font-bold text-5xl sm:text-6xl md:text-8xl text-center leading-[1.08] tracking-tight max-w-4xl min-h-[2.2em]">
             <TypewriterText
               text="Connect in"
               delay={400}
