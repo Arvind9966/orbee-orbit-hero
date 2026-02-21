@@ -303,7 +303,7 @@ class GalleryApp {
   isDown: boolean = false;
   start: number = 0;
   boundOnResize: any;
-  boundOnWheel: any;
+  boundOnPageScroll: any;
   boundOnTouchDown: any;
   boundOnTouchMove: any;
   boundOnTouchUp: any;
@@ -430,10 +430,6 @@ class GalleryApp {
   }
 
   update() {
-    // Auto-scroll when visible and not being dragged
-    if (this.isVisible && !this.isDown) {
-      this.scroll.target += this.autoScrollSpeed;
-    }
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
     const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
     if (this.medias) {
@@ -444,16 +440,21 @@ class GalleryApp {
     this.raf = window.requestAnimationFrame(this.update.bind(this));
   }
 
+  onPageScroll() {
+    if (!this.isVisible) return;
+    const rect = this.container.getBoundingClientRect();
+    const scrollProgress = -rect.top / (rect.height + window.innerHeight);
+    this.scroll.target = scrollProgress * this.scrollSpeed * 20;
+  }
+
   addEventListeners() {
     this.boundOnResize = this.onResize.bind(this);
-    this.boundOnWheel = this.onWheel.bind(this);
+    this.boundOnPageScroll = this.onPageScroll.bind(this);
     this.boundOnTouchDown = this.onTouchDown.bind(this);
     this.boundOnTouchMove = this.onTouchMove.bind(this);
     this.boundOnTouchUp = this.onTouchUp.bind(this);
     window.addEventListener('resize', this.boundOnResize);
-    // Scope touch/mouse to container so page scroll isn't blocked
-    this.container.addEventListener('mousewheel', this.boundOnWheel, { passive: true });
-    this.container.addEventListener('wheel', this.boundOnWheel, { passive: true });
+    window.addEventListener('scroll', this.boundOnPageScroll, { passive: true });
     this.container.addEventListener('mousedown', this.boundOnTouchDown);
     this.container.addEventListener('mousemove', this.boundOnTouchMove);
     this.container.addEventListener('mouseup', this.boundOnTouchUp);
@@ -466,8 +467,7 @@ class GalleryApp {
     window.cancelAnimationFrame(this.raf);
     if (this.observer) this.observer.disconnect();
     window.removeEventListener('resize', this.boundOnResize);
-    this.container.removeEventListener('mousewheel', this.boundOnWheel);
-    this.container.removeEventListener('wheel', this.boundOnWheel);
+    window.removeEventListener('scroll', this.boundOnPageScroll);
     this.container.removeEventListener('mousedown', this.boundOnTouchDown);
     this.container.removeEventListener('mousemove', this.boundOnTouchMove);
     this.container.removeEventListener('mouseup', this.boundOnTouchUp);
