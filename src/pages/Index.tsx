@@ -49,13 +49,13 @@ const Index = () => {
 
         {/* Nav */}
         <nav className="relative z-10 w-full px-6 sm:px-10 py-5 flex items-center justify-center">
-          <img src={orbeeLogo} alt="Orbee" className="h-[134px] w-auto" />
+          <img src={orbeeLogo} alt="Orbee" className="h-20 sm:h-24 md:h-[134px] w-auto" />
         </nav>
 
         {/* Center content */}
         <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 -mt-8">
           {/* Typewriter Headline */}
-          <h1 className="font-display font-light text-5xl sm:text-6xl md:text-8xl text-center leading-[1.08] tracking-tight max-w-4xl min-h-[2.2em]">
+          <h1 className="font-display font-light text-4xl sm:text-5xl md:text-8xl text-center leading-[1.08] tracking-tight max-w-4xl min-h-[2.2em]">
             <TypewriterText
               text="Connect in the"
               delay={400}
@@ -94,7 +94,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={allTypingDone ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
-            className="mt-5 flex items-center gap-4 opacity-0"
+            className="mt-5 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 opacity-0"
           >
             <a
               href="#"
@@ -115,10 +115,10 @@ const Index = () => {
       </section>
 
       {/* Gallery Section */}
-      <section className="relative w-full min-h-[60vh] flex items-center px-6 sm:px-12 md:px-20 py-10">
-        <div className="flex flex-col md:flex-row items-center md:items-stretch w-full h-[60vh] gap-0">
-          {/* Gallery Card - 40% */}
-          <div className="relative z-20 w-full md:w-[40%] h-[50vh] md:h-full rounded-3xl overflow-hidden border border-border/30 bg-muted/10 shrink-0 [filter:grayscale(100%)]">
+      <section className="relative w-full flex items-center px-4 sm:px-12 md:px-20 py-10">
+        <div className="flex flex-col md:flex-row items-center md:items-stretch w-full md:h-[60vh] gap-6 md:gap-0">
+          {/* Gallery Card */}
+          <div className="relative z-20 w-full md:w-[40%] h-[40vh] md:h-full rounded-3xl overflow-hidden border border-border/30 bg-muted/10 shrink-0 [filter:grayscale(100%)]">
             <CircularGallery
               items={[
                 { image: "/images/dining-bubbles.jpg", text: "Dining Bubbles" },
@@ -137,8 +137,8 @@ const Index = () => {
           </div>
 
           {/* Text Content - 60% */}
-          <div className="w-full md:w-[60%] flex flex-col justify-center gap-6 px-6 md:px-16 py-8 md:py-0">
-            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-foreground leading-tight">
+          <div className="w-full md:w-[60%] flex flex-col justify-center gap-4 sm:gap-6 px-2 sm:px-6 md:px-16 py-6 md:py-0">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-light text-foreground leading-tight">
               Create Your <span className="text-[#FF9A1F]">Bubble</span>
             </h2>
             <ScrambledText
@@ -156,10 +156,10 @@ const Index = () => {
       </section>
 
       {/* Find Your Date — Tinder Style */}
-      <section className="relative w-full flex items-center px-6 sm:px-12 md:px-20 py-10">
-        <div className="flex flex-col md:flex-row items-center w-full gap-12 md:gap-0">
-          {/* Text — Left 40% */}
-          <div className="w-full md:w-[40%] flex flex-col gap-6 md:pr-12">
+      <section className="relative w-full flex items-center px-4 sm:px-12 md:px-20 py-10">
+        <div className="flex flex-col md:flex-row items-center w-full gap-8 md:gap-0">
+          {/* Text — Left */}
+          <div className="w-full md:w-[40%] flex flex-col gap-4 sm:gap-6 md:pr-12 text-center md:text-left">
             <motion.span
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -174,7 +174,7 @@ const Index = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-foreground leading-tight"
+              className="font-display text-3xl sm:text-4xl md:text-6xl font-light text-foreground leading-tight"
             >
               Find Your <span className="text-[#FF9A1F]">Date</span>
             </motion.h2>
@@ -190,36 +190,38 @@ const Index = () => {
             </motion.p>
           </div>
 
-          {/* Bounce Cards — Right 60% */}
-          <div className="w-full md:w-[60%] flex items-center justify-center">
+          {/* Bounce Cards — Right */}
+          <div className="w-full md:w-[60%] flex items-center justify-center overflow-hidden">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <BounceCards
-                images={[
-                  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=250&h=350&fit=crop&crop=face",
-                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=250&h=350&fit=crop&crop=face",
-                  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=250&h=350&fit=crop&crop=face",
-                  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=250&h=350&fit=crop&crop=face",
-                  "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=250&h=350&fit=crop&crop=face",
-                ]}
-                containerWidth={500}
-                containerHeight={350}
-                animationDelay={0.5}
-                animationStagger={0.08}
-                easeType="elastic.out(1, 0.8)"
-                transformStyles={[
-                  "rotate(10deg) translate(-170px)",
-                  "rotate(5deg) translate(-85px)",
-                  "rotate(-3deg)",
-                  "rotate(-10deg) translate(85px)",
-                  "rotate(2deg) translate(170px)",
-                ]}
-                enableHover
-              />
+              <div className="scale-[0.6] sm:scale-75 md:scale-100 origin-center">
+                <BounceCards
+                  images={[
+                    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=250&h=350&fit=crop&crop=face",
+                    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=250&h=350&fit=crop&crop=face",
+                    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=250&h=350&fit=crop&crop=face",
+                    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=250&h=350&fit=crop&crop=face",
+                    "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=250&h=350&fit=crop&crop=face",
+                  ]}
+                  containerWidth={500}
+                  containerHeight={350}
+                  animationDelay={0.5}
+                  animationStagger={0.08}
+                  easeType="elastic.out(1, 0.8)"
+                  transformStyles={[
+                    "rotate(10deg) translate(-170px)",
+                    "rotate(5deg) translate(-85px)",
+                    "rotate(-3deg)",
+                    "rotate(-10deg) translate(85px)",
+                    "rotate(2deg) translate(170px)",
+                  ]}
+                  enableHover
+                />
+              </div>
             </motion.div>
           </div>
         </div>
@@ -236,16 +238,16 @@ const Index = () => {
           className="relative z-10 flex flex-col items-center text-center max-w-3xl"
         >
           <span className="text-sm font-medium tracking-widest uppercase text-accent mb-4">Download Now</span>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-foreground leading-tight">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-light text-foreground leading-tight">
             Scan to <span className="text-[#FF9A1F]">Download</span>
           </h2>
           <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-md">
             Point your camera at the QR code to get Orbee on your device.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center gap-10">
+          <div className="mt-8 flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
             {/* iOS QR */}
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-44 h-44 rounded-2xl bg-white p-3 shadow-lg">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl bg-white p-3 shadow-lg">
                 <img
                   src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://apps.apple.com/app/orbee"
                   alt="iOS QR Code"
@@ -258,8 +260,8 @@ const Index = () => {
               </div>
             </div>
             {/* Android QR */}
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-44 h-44 rounded-2xl bg-white p-3 shadow-lg">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl bg-white p-3 shadow-lg">
                 <img
                   src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://play.google.com/store/apps/details?id=com.orbee"
                   alt="Android QR Code"
@@ -277,8 +279,8 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="w-full bg-[#000000] text-white/80">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 py-14">
-          <div className="flex flex-col md:flex-row items-start gap-16">
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 py-10 sm:py-14">
+          <div className="flex flex-col md:flex-row items-start gap-10 md:gap-16">
             {/* Brand */}
             <div className="flex flex-col gap-4 max-w-xs">
               <div className="w-24 h-10 rounded-[20%] overflow-hidden">
@@ -313,7 +315,7 @@ const Index = () => {
             </div>
 
             {/* Links */}
-            <div className="flex gap-16">
+            <div className="flex flex-wrap gap-10 sm:gap-16">
               <div className="flex flex-col gap-3">
                 <span className="text-xs font-semibold uppercase tracking-wider text-white/40">Product</span>
                 <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
