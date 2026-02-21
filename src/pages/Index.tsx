@@ -126,13 +126,10 @@ const Index = () => {
         </main>
       </section>
 
-      {/* Phone + Gallery — below the fold */}
+      {/* Phone — below the fold */}
       <section className="relative w-full -mt-16 pb-12">
-        <div className="relative z-20 -mb-36 sm:-mb-44 md:-mb-52">
+        <div className="relative z-20">
           <PhoneMockup />
-        </div>
-        <div className="relative z-0 h-[400px] sm:h-[500px] md:h-[600px]">
-          <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} autoScrollSpeed={0.3} />
         </div>
       </section>
     </div>
