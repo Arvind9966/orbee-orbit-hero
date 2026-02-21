@@ -3,6 +3,7 @@ import { lazy, Suspense, useState, useCallback } from "react";
 import PhoneMockup from "@/components/PhoneMockup";
 import CardStrip from "@/components/CardStrip";
 import TypewriterText from "@/components/TypewriterText";
+import BubbleTimeline from "@/components/BubbleTimeline";
 import orbeeLogo from "@/assets/orbee-logo.png";
 
 const Antigravity = lazy(() => import("@/components/Antigravity"));
@@ -143,6 +144,9 @@ const Index = () => {
           <CardStrip />
         </div>
       </section>
+
+      {/* Bubble Concept Timeline */}
+      <BubbleTimeline />
     </div>
   );
 };
