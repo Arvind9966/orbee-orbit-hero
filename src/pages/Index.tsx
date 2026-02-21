@@ -3,6 +3,7 @@ import { lazy, Suspense, useState, useCallback } from "react";
 import CircularGallery from "@/components/CircularGallery";
 import TypewriterText from "@/components/TypewriterText";
 import ScrambledText from "@/components/ScrambledText";
+import TinderCards from "@/components/TinderCards";
 import orbeeLogo from "@/assets/orbee-logo.png";
 
 const Antigravity = lazy(() => import("@/components/Antigravity"));
@@ -162,6 +163,71 @@ const Index = () => {
             >
               Build your own circle of campus connections. From dining partners to travel buddies, hobby groups to party squads — find your people and create moments that matter.
             </ScrambledText>
+          </div>
+        </div>
+      </section>
+
+      {/* Find Your Date — Tinder Style */}
+      <section className="relative w-full min-h-screen flex items-center px-6 sm:px-12 md:px-20 py-16">
+        <div className="flex flex-col md:flex-row items-center w-full gap-12 md:gap-0">
+          {/* Text — 50% */}
+          <div className="w-full md:w-[50%] flex flex-col gap-6 md:pr-12">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-sm font-medium tracking-widest uppercase text-accent"
+            >
+              Swipe & Match
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-foreground leading-tight"
+            >
+              Find Your <span className="text-[#FF9A1F]">Date</span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-md"
+            >
+              Swipe right to connect, left to pass. It's that simple. 
+              Discover people on campus who match your vibe — no awkward DMs needed.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex items-center gap-6 mt-2 text-muted-foreground text-sm"
+            >
+              <div className="flex items-center gap-2">
+                <span className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-400">✕</span>
+                <span>Swipe left</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center text-green-400">♥</span>
+                <span>Swipe right</span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Cards — 50% */}
+          <div className="w-full md:w-[50%] flex items-center justify-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <TinderCards />
+            </motion.div>
           </div>
         </div>
       </section>
