@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import PhoneMockup from "@/components/PhoneMockup";
 import CardStrip from "@/components/CardStrip";
+import orbeeLogo from "@/assets/orbee-logo.png";
 
 const Index = () => {
   return (
@@ -15,10 +16,7 @@ const Index = () => {
         {/* Nav */}
         <nav className="relative z-10 w-full px-6 sm:px-10 py-5 flex items-center justify-between">
           <div className="flex items-center gap-8">
-            <span className="font-serif text-xl font-bold text-foreground tracking-tight flex items-center gap-2">
-              <span className="w-7 h-7 rounded-full bg-accent flex items-center justify-center text-xs">🌐</span>
-              Orbee
-            </span>
+            <img src={orbeeLogo} alt="Orbee" className="h-8 w-auto" />
             <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
               <a href="#" className="hover:text-foreground transition-colors">Features</a>
               <a href="#" className="hover:text-foreground transition-colors">Community</a>
