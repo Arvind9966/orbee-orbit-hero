@@ -171,49 +171,39 @@ const Index = () => {
       {/* Find Your Date — Tinder Style */}
       <section className="relative w-full min-h-screen flex items-center px-6 sm:px-12 md:px-20 py-16">
         <div className="flex flex-col md:flex-row items-center w-full gap-12 md:gap-0">
-          {/* Tinder Cards — Left 50% */}
-          <div className="w-full md:w-[50%] flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+          {/* Text — Left 40% */}
+          <div className="w-full md:w-[40%] flex flex-col gap-6 md:pr-12">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              transition={{ duration: 0.5 }}
+              className="text-sm font-medium tracking-widest uppercase text-accent"
             >
-              <TinderCards />
-            </motion.div>
+              Swipe & Match
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-foreground leading-tight"
+            >
+              Find Your <span className="text-[#FF9A1F]">Date</span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-md"
+            >
+              Swipe right to connect, left to pass. Discover people on campus who match your vibe — no awkward DMs needed.
+            </motion.p>
           </div>
 
-          {/* Bounce Cards — Right 50% */}
-          <div className="w-full md:w-[50%] flex flex-col items-center justify-center gap-8">
-            <div className="text-center md:text-left w-full md:pl-8">
-              <motion.span
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="text-sm font-medium tracking-widest uppercase text-accent"
-              >
-                Swipe & Match
-              </motion.span>
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-foreground leading-tight mt-3"
-              >
-                Find Your <span className="text-[#FF9A1F]">Date</span>
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-md mt-4"
-              >
-                Swipe right to connect, left to pass. Discover people on campus who match your vibe.
-              </motion.p>
-            </div>
+          {/* Bounce Cards — Right 60% */}
+          <div className="w-full md:w-[60%] flex items-center justify-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
