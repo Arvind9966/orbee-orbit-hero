@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { lazy, Suspense, useState, useCallback } from "react";
-import PhoneMockup from "@/components/PhoneMockup";
 import CircularGallery from "@/components/CircularGallery";
 import TypewriterText from "@/components/TypewriterText";
 import orbeeLogo from "@/assets/orbee-logo.png";
@@ -126,10 +125,10 @@ const Index = () => {
         </main>
       </section>
 
-      {/* Phone — below the fold */}
+      {/* Gallery — below the fold */}
       <section className="relative w-full -mt-16 pb-12">
-        <div className="relative z-20">
-          <PhoneMockup />
+        <div className="relative z-20 h-[400px] sm:h-[500px] md:h-[600px]">
+          <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} scrollSpeed={2} />
         </div>
       </section>
     </div>
