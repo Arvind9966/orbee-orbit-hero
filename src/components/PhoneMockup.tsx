@@ -36,7 +36,7 @@ const PhoneMockup = () => {
           </div>
 
           {/* Screen content */}
-          <div className="h-full w-full bg-card pt-12 px-4 pb-6">
+          <div className="h-full w-full bg-card pt-16 px-8 pb-10">
             <div className="w-full h-full rounded-2xl overflow-hidden">
               <CircularGallery bend={1} textColor="#ffffff" borderRadius={0.08} autoScrollSpeed={0.3} scrollSpeed={1} />
             </div>
