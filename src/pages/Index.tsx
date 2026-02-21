@@ -321,7 +321,9 @@ const Index = () => {
           <div className="flex flex-col md:flex-row items-start gap-16">
             {/* Brand */}
             <div className="flex flex-col gap-4 max-w-xs">
-              <img src={orbeeLogoWhite} alt="Orbee" className="h-10 w-auto invert" />
+              <div className="w-24 h-10 rounded-[20%] overflow-hidden">
+                <img src={orbeeLogoWhite} alt="Orbee" className="w-full h-full object-contain invert" />
+              </div>
               <p className="text-sm text-white/50 leading-relaxed">
                 The lighter side of social. Real-time connections, zero gravity.
               </p>
