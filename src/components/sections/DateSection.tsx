@@ -21,7 +21,23 @@ const CARD_TRANSFORMS = [
 const DateSection = () => (
   <section className="relative w-full flex items-center px-4 sm:px-12 md:px-20 py-10">
     <div className="flex flex-col md:flex-row items-center w-full gap-8 md:gap-0">
-      {/* Bounce Cards — Left 40% */}
+      {/* Text — Left 60% */}
+      <div className="w-full md:w-[60%] flex flex-col justify-center gap-4 sm:gap-6 px-2 sm:px-6 md:px-16 py-6 md:py-0">
+        <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-light text-foreground leading-tight">
+          Find Your <span className="text-[#FF9A1F]">Date</span>
+        </h2>
+        <ScrambledText
+          radius={80}
+          duration={2}
+          speed={0.3}
+          scrambleChars="·•"
+          className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed"
+        >
+          Swipe right to connect, left to pass. Discover people on campus who match your vibe — no awkward DMs needed.
+        </ScrambledText>
+      </div>
+
+      {/* Bounce Cards — Right 40% */}
       <div className="w-full md:w-[40%] flex items-center justify-center overflow-hidden">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -42,22 +58,6 @@ const DateSection = () => (
             />
           </div>
         </motion.div>
-      </div>
-
-      {/* Text — Right 60% */}
-      <div className="w-full md:w-[60%] flex flex-col justify-center gap-4 sm:gap-6 px-2 sm:px-6 md:px-16 py-6 md:py-0">
-        <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-light text-foreground leading-tight">
-          Find Your <span className="text-[#FF9A1F]">Date</span>
-        </h2>
-        <ScrambledText
-          radius={80}
-          duration={2}
-          speed={0.3}
-          scrambleChars="·•"
-          className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed"
-        >
-          Swipe right to connect, left to pass. Discover people on campus who match your vibe — no awkward DMs needed.
-        </ScrambledText>
       </div>
     </div>
   </section>
