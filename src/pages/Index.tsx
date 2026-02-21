@@ -76,13 +76,14 @@ const Index = () => {
             />
             {line1Done && (
               <>
-                {" "}
+                <br />
                 <span className="text-[#FF9A1F]">
                   <TypewriterText
                     text="Moment"
                     delay={0}
                     speed={100}
                     className="text-[#FF9A1F]"
+                    onComplete={handleLine2Complete}
                   />
                 </span>
               </>
