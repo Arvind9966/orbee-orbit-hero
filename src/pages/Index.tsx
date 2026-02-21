@@ -4,21 +4,23 @@ import CardStrip from "@/components/CardStrip";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
-      {/* Nav */}
-      <nav className="w-full px-6 sm:px-10 py-5">
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="font-serif text-2xl text-foreground tracking-tight"
-        >
-          Orbee
-        </motion.span>
-      </nav>
+    <div className="bg-background overflow-hidden">
+      {/* Hero — full viewport */}
+      <section className="relative min-h-screen flex flex-col">
+        {/* Nav */}
+        <nav className="w-full px-6 sm:px-10 py-5">
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="font-serif text-2xl text-foreground tracking-tight"
+          >
+            Orbee
+          </motion.span>
+        </nav>
 
-      {/* Hero */}
-      <main className="flex flex-col items-center px-6 pt-10 sm:pt-16">
+        {/* Centered content */}
+        <main className="flex-1 flex flex-col items-center justify-center px-6">
         {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -51,20 +53,18 @@ const Index = () => {
           Enter the Orbit
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </motion.button>
+        </main>
 
-        {/* Phone + Card strip section */}
-        <div className="relative w-full mt-12 sm:mt-16">
-          {/* Phone - overlapping on top of cards */}
+        {/* Phone + Card strip pinned to bottom of hero */}
+        <div className="relative w-full mt-auto">
           <div className="relative z-20 -mb-36 sm:-mb-44 md:-mb-52">
             <PhoneMockup />
           </div>
-
-          {/* Card strip behind phone */}
           <div className="relative z-0">
             <CardStrip />
           </div>
         </div>
-      </main>
+      </section>
     </div>
   );
 };
