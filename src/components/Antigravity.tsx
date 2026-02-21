@@ -14,14 +14,11 @@ interface ParticleData {
   cz: number;
   randomRadiusOffset: number;
   color: THREE.Color;
-  rotX: number;
-  rotY: number;
-  rotZ: number;
 }
 
 const globalMouse = { x: 0, y: 0 };
 
-const COLORS = ['#EA4335', '#4285F4', '#FBBC04', '#34A853', '#FF6D01', '#9334E6', '#E8710A', '#1A73E8', '#D93025', '#0D652D'];
+const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#F7DC6F', '#BB8FCE', '#F1948A', '#85C1E9', '#82E0AA', '#E8A87C', '#D7BDE2'];
 
 interface AntigravityInnerProps {
   count?: number;
@@ -35,7 +32,7 @@ interface AntigravityInnerProps {
   rotationSpeed?: number;
   depthFactor?: number;
   fieldStrength?: number;
-  particleShape?: 'capsule' | 'sphere' | 'box' | 'tetrahedron' | 'dash';
+  particleShape?: 'capsule' | 'sphere' | 'box' | 'tetrahedron';
 }
 
 const AntigravityInner = ({
@@ -50,7 +47,7 @@ const AntigravityInner = ({
   rotationSpeed = 0.05,
   depthFactor = 0.6,
   fieldStrength = 8,
-  particleShape = 'dash',
+  particleShape = 'capsule',
 }: AntigravityInnerProps) => {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const { viewport } = useThree();
@@ -67,30 +64,17 @@ const AntigravityInner = ({
     const height = viewport.height || 100;
 
     for (let i = 0; i < count; i++) {
-      // Bias particles toward edges for the Google Antigravity scattered look
-      const edge = Math.random();
-      let x: number, y: number;
-      if (edge < 0.5) {
-        // Spawn near horizontal edges
-        x = (Math.random() - 0.5) * width * 1.6;
-        y = (Math.random() > 0.5 ? 1 : -1) * (height * 0.3 + Math.random() * height * 0.5);
-      } else {
-        // Spawn near vertical edges
-        x = (Math.random() > 0.5 ? 1 : -1) * (width * 0.3 + Math.random() * width * 0.5);
-        y = (Math.random() - 0.5) * height * 1.6;
-      }
-      const z = (Math.random() - 0.5) * 10;
+      const x = (Math.random() - 0.5) * width * 1.5;
+      const y = (Math.random() - 0.5) * height * 1.5;
+      const z = (Math.random() - 0.5) * 15;
 
       temp.push({
         t: Math.random() * 100,
-        speed: 0.002 + Math.random() / 500,
+        speed: 0.005 + Math.random() / 300,
         mx: x, my: y, mz: z,
         cx: x, cy: y, cz: z,
         randomRadiusOffset: (Math.random() - 0.5) * 2,
         color: new THREE.Color(COLORS[Math.floor(Math.random() * COLORS.length)]),
-        rotX: Math.random() * Math.PI * 2,
-        rotY: Math.random() * Math.PI * 2,
-        rotZ: Math.random() * Math.PI * 2,
       });
     }
     return temp;
@@ -180,22 +164,18 @@ const AntigravityInner = ({
       const floatY = Math.cos(elapsed * 0.25 + i * 0.5) * 0.2;
 
       dummy.position.set(particle.cx + floatX, particle.cy + floatY, particle.cz);
-      // Random fixed rotation per particle for scattered confetti look
-      dummy.rotation.set(
-        particle.rotX + elapsed * 0.1,
-        particle.rotY + elapsed * 0.08,
-        particle.rotZ
-      );
+      dummy.lookAt(projectedTargetX, projectedTargetY, particle.cz);
+      dummy.rotateX(Math.PI / 2);
 
       const currentDistToMouse = Math.sqrt(
         Math.pow(particle.cx - projectedTargetX, 2) + Math.pow(particle.cy - projectedTargetY, 2)
       );
       const distFromRing = Math.abs(currentDistToMouse - ringRadius);
-      let scaleFactor = 1 - distFromRing / 20;
-      scaleFactor = Math.max(0.15, Math.min(1, scaleFactor));
+      let scaleFactor = 1 - distFromRing / 15;
+      scaleFactor = Math.max(0.03, Math.min(1, scaleFactor));
 
-      const finalScale = scaleFactor * (0.85 + Math.sin(t * 1.5) * 0.15) * particleSize;
-      dummy.scale.set(finalScale, finalScale * 2.5, finalScale);
+      const finalScale = scaleFactor * (0.7 + Math.sin(t * 2) * 0.3) * particleSize;
+      dummy.scale.set(finalScale, finalScale, finalScale);
       dummy.updateMatrix();
       mesh.setMatrixAt(i, dummy.matrix);
     });
@@ -205,12 +185,11 @@ const AntigravityInner = ({
 
   return (
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
-      {particleShape === 'dash' && <boxGeometry args={[0.08, 0.35, 0.08]} />}
       {particleShape === 'capsule' && <capsuleGeometry args={[0.04, 0.25, 4, 8]} />}
       {particleShape === 'sphere' && <sphereGeometry args={[0.12, 8, 8]} />}
       {particleShape === 'box' && <boxGeometry args={[0.15, 0.15, 0.15]} />}
       {particleShape === 'tetrahedron' && <tetrahedronGeometry args={[0.15]} />}
-      <meshBasicMaterial vertexColors transparent opacity={0.9} />
+      <meshBasicMaterial vertexColors transparent opacity={0.85} />
     </instancedMesh>
   );
 };

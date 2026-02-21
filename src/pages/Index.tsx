@@ -27,18 +27,18 @@ const Index = () => {
           <Suspense fallback={null}>
             <Antigravity
               className="w-full h-full"
-              count={180}
-              magnetRadius={20}
-              ringRadius={14}
-              waveSpeed={0.08}
-              waveAmplitude={0.3}
-              particleSize={1.2}
-              lerpSpeed={0.015}
+              count={250}
+              magnetRadius={18}
+              ringRadius={12}
+              waveSpeed={0.15}
+              waveAmplitude={0.5}
+              particleSize={1.4}
+              lerpSpeed={0.025}
               autoAnimate
-              rotationSpeed={0.012}
-              depthFactor={0.3}
-              fieldStrength={4}
-              particleShape="dash"
+              rotationSpeed={0.02}
+              depthFactor={0.4}
+              fieldStrength={6}
+              particleShape="capsule"
             />
           </Suspense>
         </div>
