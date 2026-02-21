@@ -130,7 +130,7 @@ const Index = () => {
       <section className="relative w-full min-h-screen flex items-center px-6 sm:px-12 md:px-20 py-12">
         <div className="flex flex-col md:flex-row items-center md:items-center gap-10 md:gap-16 w-full">
           {/* Gallery Card */}
-          <div className="relative z-20 w-[280px] sm:w-[340px] md:w-[400px] aspect-square rounded-3xl overflow-hidden border border-border/30 bg-muted/10 shrink-0">
+          <div className="relative z-20 w-[280px] sm:w-[340px] md:w-[400px] aspect-square rounded-3xl overflow-hidden border border-border/30 bg-muted/10 shrink-0 [filter:grayscale(100%)]">
             <CircularGallery
               items={[
                 { image: "/images/dining-bubbles.jpg", text: "Dining Bubbles" },
