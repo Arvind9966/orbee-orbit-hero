@@ -6,6 +6,7 @@ import ScrambledText from "@/components/ScrambledText";
 import TinderCards from "@/components/TinderCards";
 import BounceCards from "@/components/BounceCards";
 import orbeeLogo from "@/assets/orbee-logo.png";
+import orbeeIcon from "@/assets/orbee-icon.png";
 
 const Antigravity = lazy(() => import("@/components/Antigravity"));
 
@@ -319,7 +320,9 @@ const Index = () => {
           <div className="flex flex-col md:flex-row items-start gap-16">
             {/* Brand */}
             <div className="flex flex-col gap-4 max-w-xs">
-              <img src={orbeeLogo} alt="Orbee" className="h-10 w-auto brightness-0 invert" />
+              <div className="w-10 h-10 bg-white rounded-[20%] flex items-center justify-center p-1.5">
+                <img src={orbeeIcon} alt="Orbee" className="w-full h-full object-contain" />
+              </div>
               <p className="text-sm text-white/50 leading-relaxed">
                 The lighter side of social. Real-time connections, zero gravity.
               </p>
