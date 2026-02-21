@@ -139,6 +139,7 @@ const Index = () => {
             ]}
             bend={3}
             textColor="#000000"
+            font="bold 24px 'Google Sans Flex', sans-serif"
             borderRadius={0.05}
             scrollSpeed={2}
           />
