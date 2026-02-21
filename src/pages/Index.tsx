@@ -5,7 +5,7 @@ import TypewriterText from "@/components/TypewriterText";
 import ScrambledText from "@/components/ScrambledText";
 import TinderCards from "@/components/TinderCards";
 import BounceCards from "@/components/BounceCards";
-import orbeeLogo from "@/assets/orbee-logo.png";
+import orbeeLogo from "@/assets/orbee-logo.svg";
 
 const Antigravity = lazy(() => import("@/components/Antigravity"));
 
