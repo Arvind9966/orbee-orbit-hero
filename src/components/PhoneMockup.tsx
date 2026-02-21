@@ -35,43 +35,9 @@ const PhoneMockup = () => {
             <svg className="w-4 h-4 text-foreground" fill="currentColor" viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
           </div>
 
-          {/* Screen content */}
-          <div className="h-full pt-12 px-5 pb-5 flex flex-col items-center gap-3 bg-card">
-            {/* Profile picture */}
-            <div className="w-20 h-20 rounded-2xl bg-orbee-lavender overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face"
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            <div className="text-center">
-              <p className="text-base font-bold text-foreground">Alex Rivera</p>
-              <p className="text-xs text-muted-foreground mt-0.5">CS Major • Sophomore</p>
-            </div>
-
-            {/* Dots + icon row */}
-            <div className="flex items-center gap-3 mt-1">
-              <div className="flex gap-1">
-                {[0,1,2,3].map(i => (
-                  <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-foreground' : 'bg-muted'}`} />
-                ))}
-              </div>
-              <div className="w-8 h-8 rounded-lg bg-foreground flex items-center justify-center">
-                <svg className="w-4 h-4 text-primary-foreground" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-              </div>
-              <div className="flex gap-1">
-                {[0,1,2,3].map(i => (
-                  <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-foreground' : 'bg-muted'}`} />
-                ))}
-              </div>
-            </div>
-
-            {/* Gallery inside phone */}
-            <div className="w-full flex-1 mt-2 rounded-xl overflow-hidden min-h-0">
-              <CircularGallery bend={1} textColor="#ffffff" borderRadius={0.08} autoScrollSpeed={0.3} scrollSpeed={1} />
-            </div>
+          {/* Screen content - full gallery */}
+          <div className="h-full w-full bg-card">
+            <CircularGallery bend={1} textColor="#ffffff" borderRadius={0.08} autoScrollSpeed={0.3} scrollSpeed={1} />
           </div>
         </div>
       </motion.div>
