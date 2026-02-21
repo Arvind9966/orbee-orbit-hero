@@ -1,0 +1,11 @@
+.text-block {
+  cursor: default;
+}
+
+.text-block p {
+  margin: 0;
+}
+
+.text-block .char {
+  display: inline-block;
+}
