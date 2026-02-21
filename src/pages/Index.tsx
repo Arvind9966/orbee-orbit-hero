@@ -48,7 +48,7 @@ const Index = () => {
         {/* Nav */}
         <nav className="relative z-10 w-full px-6 sm:px-10 py-5 flex items-center justify-between">
           <div className="flex items-center gap-8">
-            <img src={orbeeLogo} alt="Orbee" className="h-12 w-auto" />
+            <img src={orbeeLogo} alt="Orbee" className="h-16 w-auto" />
             <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
               <a href="#" className="hover:text-foreground transition-colors">Features</a>
               <a href="#" className="hover:text-foreground transition-colors">Community</a>
@@ -292,7 +292,7 @@ const Index = () => {
           <div className="flex flex-col md:flex-row items-start justify-between gap-10">
             {/* Brand */}
             <div className="flex flex-col gap-3 max-w-xs">
-              <img src={orbeeLogo} alt="Orbee" className="h-10 w-auto" />
+              <img src={orbeeLogo} alt="Orbee" className="h-14 w-auto" />
               <p className="text-sm text-muted-foreground leading-relaxed">
                 The lighter side of social. Real-time connections, zero gravity.
               </p>
