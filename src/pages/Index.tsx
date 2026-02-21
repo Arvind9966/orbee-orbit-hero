@@ -51,17 +51,6 @@ const Index = () => {
         <nav className="relative z-10 w-full px-6 sm:px-10 py-5 flex items-center justify-between">
           <div className="flex items-center gap-8">
             <img src={orbeeLogo} alt="Orbee" className="h-20 w-auto" />
-            <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
-              <a href="#" className="hover:text-foreground transition-colors">
-                Features
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
-                Community
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
-                Safety
-              </a>
-            </div>
           </div>
         </nav>
 
