@@ -20,7 +20,7 @@ const Index = () => {
   return (
     <div className="bg-background overflow-hidden">
       {/* Hero */}
-      <section className="relative min-h-screen flex flex-col">
+      <section className="relative h-screen flex flex-col">
         {/* Colorful Particle Background */}
         <div className="absolute inset-0 z-[1] pointer-events-none">
           <Suspense fallback={null}>
