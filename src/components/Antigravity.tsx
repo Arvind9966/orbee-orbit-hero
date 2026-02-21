@@ -115,11 +115,11 @@ const AntigravityInner = ({
 
     if (autoAnimate && Date.now() - lastMouseMoveTime.current > 3000) {
       const time = state.clock.getElapsedTime();
-      destX = Math.sin(time * 0.3) * (v.width / 5);
-      destY = Math.cos(time * 0.4) * (v.height / 5);
+      destX = Math.sin(time * 0.15) * (v.width / 6);
+      destY = Math.cos(time * 0.2) * (v.height / 6);
     }
 
-    const smoothFactor = 0.04;
+    const smoothFactor = 0.02;
     virtualMouse.current.x += (destX - virtualMouse.current.x) * smoothFactor;
     virtualMouse.current.y += (destY - virtualMouse.current.y) * smoothFactor;
 
@@ -129,9 +129,9 @@ const AntigravityInner = ({
 
     particles.forEach((particle, i) => {
       const { speed, mx: pmx, my: pmy, mz: pmz, cz, randomRadiusOffset } = particle;
-      particle.t += speed / 2;
+      particle.t += speed / 4;
       const t = particle.t;
-
+      const elapsed = state.clock.getElapsedTime();
       const projectionFactor = 1 - cz / 50;
       const projectedTargetX = targetX * projectionFactor;
       const projectedTargetY = targetY * projectionFactor;
@@ -153,11 +153,17 @@ const AntigravityInner = ({
         targetPos.z = pmz * depthFactor + Math.sin(t) * waveAmplitude * depthFactor;
       }
 
-      particle.cx += (targetPos.x - particle.cx) * lerpSpeed;
-      particle.cy += (targetPos.y - particle.cy) * lerpSpeed;
-      particle.cz += (targetPos.z - particle.cz) * lerpSpeed;
+      // Slow, dreamy lerp for floating feel
+      const currentLerp = lerpSpeed;
+      particle.cx += (targetPos.x - particle.cx) * currentLerp;
+      particle.cy += (targetPos.y - particle.cy) * currentLerp;
+      particle.cz += (targetPos.z - particle.cz) * currentLerp;
 
-      dummy.position.set(particle.cx, particle.cy, particle.cz);
+      // Add gentle idle floating bob
+      const floatX = Math.sin(elapsed * 0.3 + i * 0.7) * 0.15;
+      const floatY = Math.cos(elapsed * 0.25 + i * 0.5) * 0.2;
+
+      dummy.position.set(particle.cx + floatX, particle.cy + floatY, particle.cz);
       dummy.lookAt(projectedTargetX, projectedTargetY, particle.cz);
       dummy.rotateX(Math.PI / 2);
 
@@ -165,8 +171,8 @@ const AntigravityInner = ({
         Math.pow(particle.cx - projectedTargetX, 2) + Math.pow(particle.cy - projectedTargetY, 2)
       );
       const distFromRing = Math.abs(currentDistToMouse - ringRadius);
-      let scaleFactor = 1 - distFromRing / 12;
-      scaleFactor = Math.max(0.05, Math.min(1, scaleFactor));
+      let scaleFactor = 1 - distFromRing / 15;
+      scaleFactor = Math.max(0.03, Math.min(1, scaleFactor));
 
       const finalScale = scaleFactor * (0.7 + Math.sin(t * 2) * 0.3) * particleSize;
       dummy.scale.set(finalScale, finalScale, finalScale);
