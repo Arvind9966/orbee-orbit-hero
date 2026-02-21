@@ -128,7 +128,20 @@ const Index = () => {
       {/* Gallery Section */}
       <section className="relative w-full min-h-screen flex items-center px-6 sm:px-12 md:px-20 py-12">
         <div className="relative z-20 w-[280px] sm:w-[340px] md:w-[400px] aspect-square rounded-3xl overflow-hidden border border-border/30 bg-muted/10">
-          <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} scrollSpeed={2} />
+          <CircularGallery
+            items={[
+              { image: "/images/dining-bubbles.jpg", text: "Dining Bubbles" },
+              { image: "/images/hobby-bubbles.jpg", text: "Hobby Bubbles" },
+              { image: "/images/travel-bubbles.jpg", text: "Travel Bubbles" },
+              { image: "/images/interest-bubbles.jpg", text: "Interest Bubbles" },
+              { image: "/images/party-bubbles.jpg", text: "Party Bubbles" },
+              { image: "/images/chill-bubbles.jpg", text: "Chill Bubbles" },
+            ]}
+            bend={3}
+            textColor="#000000"
+            borderRadius={0.05}
+            scrollSpeed={2}
+          />
         </div>
       </section>
     </div>
