@@ -3,7 +3,6 @@ import { lazy, Suspense, useState, useCallback } from "react";
 import PhoneMockup from "@/components/PhoneMockup";
 import CardStrip from "@/components/CardStrip";
 import TypewriterText from "@/components/TypewriterText";
-import BubbleTimeline from "@/components/BubbleTimeline";
 import orbeeLogo from "@/assets/orbee-logo.png";
 
 const Antigravity = lazy(() => import("@/components/Antigravity"));
@@ -67,31 +66,22 @@ const Index = () => {
         {/* Center content */}
         <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 -mt-8">
           {/* Typewriter Headline */}
-          <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-8xl text-center leading-[1.08] tracking-tight max-w-4xl min-h-[2.2em]">
+          <h1 className="font-sans font-bold text-5xl sm:text-6xl md:text-8xl text-center leading-[1.08] tracking-tight max-w-4xl min-h-[2.2em]">
             <TypewriterText
-              text="Connect in"
+              text="Connect in the"
               delay={400}
               speed={80}
               className="text-foreground"
               onComplete={handleLine1Complete}
             />
-            {line1Done && (
-              <>
-                <br />
-                <TypewriterText
-                  text="the "
-                  delay={200}
-                  speed={80}
-                  className="text-foreground"
-                  onComplete={handleLine2Complete}
-                />
+           
                 {line2Done && (
-                  <span className="text-[#FF9A1F]">
+                  <span className="bg-gradient-to-r from-foreground via-[hsl(30,70%,55%)] to-[hsl(35,80%,65%)] bg-clip-text text-transparent">
                     <TypewriterText
                       text="Moment"
                       delay={0}
                       speed={100}
-                      className="text-[#FF9A1F]"
+                      className="bg-gradient-to-r from-foreground via-[hsl(30,70%,55%)] to-[hsl(35,80%,65%)] bg-clip-text text-transparent"
                     />
                   </span>
                 )}
@@ -135,18 +125,15 @@ const Index = () => {
         </main>
       </section>
 
-      {/* Phone + Cards — below the fold, scroll-triggered */}
-      <section className="relative w-full pt-8 pb-24">
-        <div className="relative z-20 mb-8">
+      {/* Phone + Cards — below the fold */}
+      <section className="relative w-full -mt-16 pb-12">
+        <div className="relative z-20 -mb-36 sm:-mb-44 md:-mb-52">
           <PhoneMockup />
         </div>
         <div className="relative z-0">
           <CardStrip />
         </div>
       </section>
-
-      {/* Bubble Concept Timeline */}
-      <BubbleTimeline />
     </div>
   );
 };
