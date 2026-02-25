@@ -55,7 +55,7 @@ const Footer = () => (
             <div key={title} className="flex flex-col gap-3">
               <span className="text-xs font-semibold uppercase tracking-wider text-white/40">{title}</span>
               {links.map((link) => (
-                <a key={link} href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a key={link} href={link === "Blog" ? "/blog" : "#"} className="text-sm text-white/60 hover:text-white transition-colors">
                   {link}
                 </a>
               ))}
